@@ -1,6 +1,6 @@
 {
   "name": "dsh-memory",
-  "version": "0.11.4",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "description": "QQ 群聊长期记忆库：按需上下文、增量整理、审计回滚；作为 DSH 插件与独立 worker 运行。",
@@ -29,7 +29,8 @@
     "deepseek-harness",
     "qqbridge",
     "memory",
-    "onebot"
+    "onebot",
+    "ai-agent"
   ],
   "files": [
     "src/",
