@@ -1,0 +1,81 @@
+{
+  "_comment": "复制为 config.json 后修改 bridge.home；config.json 与 data/ 不进 Git。",
+  "dataDir": "./data",
+  "bridge": {
+    "home": "../QQbridge",
+    "socialV2": "state/social-v2.json",
+    "sessions": "state/sessions.json",
+    "initialPrompts": "state/initial-prompts.json",
+    "consoleTokenFile": "state/console-token",
+    "rolesDir": "roles",
+    "consolePort": 3100
+  },
+  "context": {
+    "defaultDetail": "brief",
+    "tinyChars": 350,
+    "maxChars": 650,
+    "fullChars": 1200,
+    "rulesChars": 100,
+    "memberChars": 260,
+    "timelineChars": 220,
+    "personaChars": 70,
+    "recentChars": 180,
+    "windowMessages": 12,
+    "cacheTtlMs": 120000,
+    "cacheEntries": 200
+  },
+  "metrics": {
+    "_comment": "匿名 JSONL 指标；仅含 HMAC 会话代号和计数，不含群号、QQ、消息正文或令牌。",
+    "enabled": true,
+    "maxBytes": 5242880,
+    "keepFiles": 5
+  },
+  "facts": {
+    "_comment": "schema 3 迁移后的旧 date/source/scope 双写观察期；到期后自动只写新字段。",
+    "schema": 3,
+    "observationDays": 14
+  },
+  "toolUsage": {
+    "_comment": "只有观察跨度和总调用量同时达标，tool-usage --apply 才允许关闭零调用的非核心工具。",
+    "observationDays": 14,
+    "minTotalCalls": 500
+  },
+  "consolidate": {
+    "enabled": true,
+    "intervalMs": 7200000,
+    "minInformativeMessages": 30,
+    "forceMessages": 100,
+    "lowActivityMinMessages": 10,
+    "quietMs": 900000,
+    "maxWaitMs": 43200000,
+    "maxMessages": 150,
+    "preset": "qq-chat",
+    "workspaceTitle": "QQ 记忆整理",
+    "timeoutMs": 180000
+  },
+  "worker": {
+    "pollMs": 300000,
+    "dshClientPath": "",
+    "provider": "deepseek-official",
+    "model": "deepseek-flash",
+    "reasoningEffort": "max",
+    "dshBaseUrl": "",
+    "lock": {
+      "_comment": "防止多个 worker 同时整理同一批消息。",
+      "heartbeatMs": 30000,
+      "staleMs": 180000
+    },
+    "consolidationSession": {
+      "_comment": "整理专用 DSH 会话命中任一上限后归档重建，避免上下文继续膨胀。",
+      "maxBatches": 4,
+      "maxSteps": 12,
+      "maxTokens": 100000
+    },
+    "reset": {
+      "_comment": "闲置时只退役 DSH 会话并保留 social-v2/seq；关掉设 enabled=false",
+      "enabled": true,
+      "intervalMs": 21600000,
+      "idleMs": 1200000
+    }
+  }
+}

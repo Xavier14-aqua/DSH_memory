@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dsh-memory:schema:consolidation-patch:v1",
+  "title": "Memory consolidation patch envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "patches"],
+  "properties": {
+    "schema": { "const": 1 },
+    "patches": {
+      "type": "array",
+      "maxItems": 40,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["op", "target"],
+        "properties": {
+          "op": { "enum": ["add", "replace", "remove"] },
+          "target": { "enum": ["timeline", "member-fact", "persona"] },
+          "qq": { "type": "string", "pattern": "^[0-9]{4,12}$" },
+          "scope": { "enum": ["global", "group"] },
+          "groupId": { "type": "string", "pattern": "^[0-9]{1,20}$" },
+          "id": { "type": "string", "minLength": 1, "maxLength": 120 },
+          "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+          "match": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "value": {}
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "target": { "const": "member-fact" } } },
+            "then": { "required": ["qq", "scope"] }
+          },
+          {
+            "if": { "properties": { "op": { "enum": ["replace", "remove"] }, "target": { "const": "member-fact" } } },
+            "then": { "required": ["id"] }
+          }
+        ]
+      }
+    }
+  }
+}

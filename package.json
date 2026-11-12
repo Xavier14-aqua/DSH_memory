@@ -1,0 +1,49 @@
+{
+  "name": "dsh-memory",
+  "version": "0.11.4",
+  "private": true,
+  "type": "module",
+  "description": "QQ 群聊长期记忆库：按需上下文、增量整理、审计回滚；作为 DSH 插件与独立 worker 运行。",
+  "main": "./src/plugin/index.mjs",
+  "bin": {
+    "dsh-memory": "./src/cli.mjs"
+  },
+  "scripts": {
+    "init": "node ./src/cli.mjs init",
+    "doctor": "node ./src/cli.mjs doctor",
+    "worker": "node ./src/worker/worker.mjs",
+    "worker:once": "node ./src/worker/worker.mjs --once",
+    "install:dsh": "node ./scripts/install-dsh.mjs",
+    "uninstall:dsh": "node ./scripts/uninstall-dsh.mjs",
+    "status": "node ./src/cli.mjs status",
+    "metrics": "node ./src/cli.mjs metrics",
+    "sync": "node ./src/cli.mjs sync",
+    "test": "node ./test/run.mjs",
+    "privacy-scan": "node ./scripts/privacy-scan.mjs"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "license": "MIT",
+  "keywords": [
+    "deepseek-harness",
+    "qqbridge",
+    "memory",
+    "onebot"
+  ],
+  "files": [
+    "src/",
+    "schemas/",
+    "scripts/",
+    "examples/",
+    "memory.mjs",
+    "start-worker.bat",
+    "config.example.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE.md",
+    "PRIVACY.md",
+    "SECURITY.md"
+  ]
+}
